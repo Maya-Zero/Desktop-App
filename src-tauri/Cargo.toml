@@ -1,0 +1,37 @@
+[package]
+name = "maya-zero"
+version = "0.1.0"
+description = "A Tauri App"
+authors = ["you"]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "maya_zero_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+tonic-build = "0.10"
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1.0" # Clean error handling (crucial for beginners)
+cosmrs = { version = "0.15", features = ["rpc", "grpc"] } 
+bip39 = { version = "2.0", features = ["rand"] } 
+k256 = { version = "0.13", features = ["ecdsa"] }
+reqwest = { version = "0.11", features = ["json"] }
+tonic = "0.10"
+prost = "0.12" 
+prost-types = "0.12"
+sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite"] }
+keyring = "2"
+rand = "0.8"
+
