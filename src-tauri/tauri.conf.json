@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "maya-zero",
-        "width": 800,
-        "height": 600
+        "title": "Maya Zero",
+        "minWidth": 800,
+        "minHeight": 600,
+        "maximized": true,
+        "resizable": true
       }
     ],
     "security": {

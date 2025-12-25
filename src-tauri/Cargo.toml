@@ -21,17 +21,29 @@ tonic-build = "0.10"
 [dependencies]
 tauri = { version = "2", features = [] }
 tauri-plugin-opener = "2"
+tauri-plugin-notification = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 anyhow = "1.0" # Clean error handling (crucial for beginners)
 cosmrs = { version = "0.15", features = ["rpc", "grpc"] } 
 bip39 = { version = "2.0", features = ["rand"] } 
 k256 = { version = "0.13", features = ["ecdsa"] }
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
 tonic = "0.10"
 prost = "0.12" 
 prost-types = "0.12"
 sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "sqlite"] }
 keyring = "2"
 rand = "0.8"
+tauri-plugin-store = "2"
+aes-gcm = "0.10"
+argon2 = "0.5"
+base64 = "0.21"
+tokio = { version = "1", features = ["full"] }
+uuid = { version = "1.19.0", features = ["v4"] }
+tokio-tungstenite = { version = "0.21.0", features = ["connect", "native-tls"] }
+url = "2.5.7"
+futures-util = "0.3.31"
+dotenvy = "0.15"
+bech32 = "0.9"
 

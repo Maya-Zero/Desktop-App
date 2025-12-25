@@ -24,3 +24,23 @@ dist-ssr
 *.sw?
 
 mayanode-v1.126.0-proto
+.env
+
+# System
+Thumbs.db
+desktop.ini
+
+# Agent
+.agent/
+.gemini/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+tmp/
+out/
+*.pem
+.tanstack
+

@@ -9,7 +9,7 @@ function App() {
     try {
       // Returns [mnemonic, address]
       const [phrase, address] = await invoke("generate_seed_phrase") as [string, string];
-      console.log("Wallet created:", phrase, address);
+      
       setWallet({ phrase, address });
     } catch (error) {
       console.error("Failed to generate wallet:", error);

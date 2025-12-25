@@ -3,11 +3,9 @@ import {
   Wallet,
   ArrowRightLeft,
   Coins,
-  Gift,
-  Activity,
   Settings,
   HelpCircle,
-  Command
+  Server
 } from "lucide-react"
 import {
   Sidebar,
@@ -23,7 +21,9 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar"
-import { Link, useLocation } from "@tanstack/react-router"
+import { Link } from "@tanstack/react-router"
+import { NetworkStatus } from "../NetworkStatus"
+import { AssetIcon } from "@/components/ui/asset-icon"
 
 // Defines the navigation structure
 const navMain = [
@@ -39,8 +39,8 @@ const navMain = [
   {
     title: "Earn",
     items: [
-      { title: "Rewards", url: "/rewards", icon: Gift },
-      { title: "Activity", url: "/activity", icon: Activity },
+      { title: "Bond", url: "/bond", icon: Server },
+      { title: "CacaoPool", url: "/cacaopool", icon: Coins },
     ],
   },
 ]
@@ -61,8 +61,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link to="/">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary/10 text-sidebar-primary">
-                  <Command className="size-4" />
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary/10 text-sidebar-primary overflow-hidden">
+                  <AssetIcon ticker="MAYA" className="size-5" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#00FFA0] to-[#00F2FA]">Maya Zero</span>
@@ -117,9 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarFooter>
          {/* Could add a user profile or connection status here */}
-         <div className="p-2 text-xs text-center text-muted-foreground group-data-[collapsible=icon]:hidden">
-            v0.1.0-alpha
-         </div>
+         <NetworkStatus />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

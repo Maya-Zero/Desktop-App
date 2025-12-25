@@ -2,10 +2,11 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { AppSidebar } from "./sidebar"
 import { Separator } from "@/components/ui/separator"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
-import { Outlet } from "@tanstack/react-router"
+import { Outlet, useLocation } from "@tanstack/react-router"
 import { Header } from "./header"
 
 export function AppLayout() {
+  const location = useLocation()
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -18,12 +19,21 @@ export function AppLayout() {
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
                   <BreadcrumbLink href="#">
-                    Platform
+                    {location.pathname.startsWith('/rewards') || location.pathname.startsWith('/activity') ? 'Earn' : 'Platform'}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Dashboard</BreadcrumbPage>
+                  <BreadcrumbPage>
+                    {location.pathname === '/' && 'Dashboard'}
+                    {location.pathname === '/portfolio' && 'Portfolio'}
+                    {location.pathname === '/swap' && 'Swap'}
+                    {location.pathname === '/pools' && 'Pools'}
+                    {location.pathname === '/cacaopool' && 'Cacao Pool'}
+                    {location.pathname === '/activity' && 'Activity'}
+                    {location.pathname === '/settings' && 'Settings'}
+                    {location.pathname === '/support' && 'Support'}
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -43,3 +53,4 @@ export function AppLayout() {
     </SidebarProvider>
   )
 }
+

@@ -8,9 +8,30 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SettingsLazyRouteImport = createFileRoute('/settings')()
+const OnboardingLazyRouteImport = createFileRoute('/onboarding')()
+const CacaopoolLazyRouteImport = createFileRoute('/cacaopool')()
+
+const SettingsLazyRoute = SettingsLazyRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/settings.lazy').then((d) => d.Route))
+const OnboardingLazyRoute = OnboardingLazyRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/onboarding.lazy').then((d) => d.Route))
+const CacaopoolLazyRoute = CacaopoolLazyRouteImport.update({
+  id: '/cacaopool',
+  path: '/cacaopool',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/cacaopool.lazy').then((d) => d.Route))
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +40,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cacaopool': typeof CacaopoolLazyRoute
+  '/onboarding': typeof OnboardingLazyRoute
+  '/settings': typeof SettingsLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cacaopool': typeof CacaopoolLazyRoute
+  '/onboarding': typeof OnboardingLazyRoute
+  '/settings': typeof SettingsLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cacaopool': typeof CacaopoolLazyRoute
+  '/onboarding': typeof OnboardingLazyRoute
+  '/settings': typeof SettingsLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/cacaopool' | '/onboarding' | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/cacaopool' | '/onboarding' | '/settings'
+  id: '__root__' | '/' | '/cacaopool' | '/onboarding' | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CacaopoolLazyRoute: typeof CacaopoolLazyRoute
+  OnboardingLazyRoute: typeof OnboardingLazyRoute
+  SettingsLazyRoute: typeof SettingsLazyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cacaopool': {
+      id: '/cacaopool'
+      path: '/cacaopool'
+      fullPath: '/cacaopool'
+      preLoaderRoute: typeof CacaopoolLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +107,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CacaopoolLazyRoute: CacaopoolLazyRoute,
+  OnboardingLazyRoute: OnboardingLazyRoute,
+  SettingsLazyRoute: SettingsLazyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
