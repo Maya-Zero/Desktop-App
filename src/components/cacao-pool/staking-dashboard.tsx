@@ -132,7 +132,7 @@ export function StakingDashboard() {
         {/* Pending Rewards Card */}
         <Card className="shadow-none border-border/60 bg-card/50">
            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Pending Rewards</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Accumulated Rewards</CardTitle>
             <Loader2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -157,7 +157,7 @@ export function StakingDashboard() {
           <Card className="w-full max-w-[480px] shadow-sm border-border/60">
             <CardHeader>
               <CardTitle>Stake CACAO</CardTitle>
-              <CardDescription>Add liquidity to earn rewards.</CardDescription>
+              <CardDescription>Stake your CACAO to earn yield.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div className="p-5 rounded-xl bg-muted/30 border border-border/40 space-y-4 transition-all hover:bg-muted/40 focus-within:border-primary/20 focus-within:bg-muted/40 focus-within:ring-1 focus-within:ring-primary/10">

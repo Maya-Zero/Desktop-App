@@ -10,6 +10,7 @@ import { usePrices } from "@/components/providers/price-provider"
 import { useCacao } from "../providers/cacao-provider"
 import { Link } from "@tanstack/react-router"
 import { AssetIcon } from "@/components/ui/asset-icon"
+import { FormattedBalance } from "../ui/formatted-balance"
 
 // Mock Pricing & Metadata Map - Prices removed as they come from API
 // We keep names and tickers for display.
@@ -87,7 +88,7 @@ export function DashboardView() {
                 icon={<Zap className="h-4 w-4 text-muted-foreground" />} 
             />
             <KpiItem 
-                label="Unclaimed Rewards" 
+                label="Accumulated Rewards" 
                 value={position?.pending_rewards.toLocaleString()!} 
                 sub={`$${getUsdValue(parseInt(position?.pending_rewards!), 'cacao').toLocaleString(undefined, { minimumFractionDigits: 2 })}`} 
                 highlight 
@@ -192,7 +193,7 @@ export function DashboardView() {
                             </div>
                             <div className="grid grid-cols-2 gap-4 py-2">
                                 <div className="p-3 rounded-lg bg-background/50 border border-border/50 space-y-2">
-                                    <div className="text-xs text-muted-foreground">Unclaimed</div>
+                                    <div className="text-xs text-muted-foreground">Accumulated</div>
                                     <Skeleton className="h-6 w-16" />
                                 </div>
                                 <div className="p-3 rounded-lg bg-background/50 border border-border/50 space-y-2">
@@ -217,14 +218,14 @@ export function DashboardView() {
                         <>
                             <div>
                                 <div className="text-sm font-medium text-muted-foreground">Staked CACAO</div>
-                                <div className="text-3xl font-mono font-bold tracking-tighter mt-2 text-foreground">{position?.total_staked.toLocaleString()}</div>
+                                <div className="text-3xl font-mono font-bold tracking-tighter mt-2 text-foreground"><FormattedBalance value={position?.total_staked ?? 0} /></div>
                                 <div className="text-xs text-muted-foreground mt-1">≈ ${getUsdValue(parseInt(position?.total_staked!), 'cacao').toLocaleString(undefined, { minimumFractionDigits: 2 })} USD</div>
                             </div>
                             
                             <div className="grid grid-cols-2 gap-4 py-2">
                                 <div className="p-3 rounded-lg bg-background/50 border border-border/50">
-                                    <div className="text-xs text-muted-foreground mb-1">Unclaimed</div>
-                                    <div className="text-lg font-mono font-medium text-emerald-400">{position?.pending_rewards.toLocaleString()}</div>
+                                    <div className="text-xs text-muted-foreground mb-1">Accumulated</div>
+                                    <div className="text-lg font-mono font-medium text-emerald-400"><FormattedBalance value={position?.pending_rewards ?? 0} /></div>
                                 </div>
                                 <div className="p-3 rounded-lg bg-background/50 border border-border/50">
                                     <div className="text-xs text-muted-foreground mb-1">APY</div>

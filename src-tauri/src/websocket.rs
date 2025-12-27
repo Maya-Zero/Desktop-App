@@ -24,8 +24,7 @@ pub fn init_ws_monitor(
     health_state: Arc<RwLock<HealthConfig>>,
 ) {
     tauri::async_runtime::spawn(async move {
-        let mut current_session: Option<String> = None;
-        let mut active_url: String = String::new();
+
 
         loop {
             // ... (Session / Connection Setup Logic from previous steps) ...
@@ -37,12 +36,11 @@ pub fn init_ws_monitor(
             };
 
             if session_addr.is_none() {
-                current_session = None;
+
                 tokio::time::sleep(Duration::from_secs(2)).await;
                 continue;
             }
-            let address = session_addr.unwrap();
-            current_session = Some(address.clone());
+            let address = session_addr.as_ref().unwrap().clone();
 
             // 2. Get URL
             let target_url_base = {
@@ -54,7 +52,7 @@ pub fn init_ws_monitor(
             } else {
                 format!("{}/websocket", target_url_base)
             };
-            active_url = target_url.clone();
+            let active_url = target_url;
 
             println!("Core: WS Connecting to {}...", active_url);
 
@@ -173,7 +171,7 @@ pub fn init_ws_monitor(
                         // ... (Configuration Change Checks from previous steps) ...
                         // Check if session changed
                          let check_addr = session_state.read().unwrap().clone();
-                         if check_addr != current_session { break; }
+                         if check_addr != session_addr { break; }
                          
                          // Check if URL changed
                          let check_url = {
